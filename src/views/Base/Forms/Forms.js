@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Qtum, QtumRPC, Contract } from "qtumjs"
 import {
   Badge,
   Button,
@@ -26,8 +25,9 @@ import {
   Alert,
 } from 'reactstrap';
 
-const qtum = new Qtum("http://localhost:9888", require("../../../solar.development.json"))
-const myToken = qtum.contract("Simplr.sol")
+import utils from '../../../utils/index';
+
+const myToken = utils.contract;
 
 class Forms extends Component {
   constructor(props) {

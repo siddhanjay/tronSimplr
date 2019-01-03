@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { Qtum, QtumRPC, Contract } from "qtumjs"
-// import { ITransferLog, ITxRecord } from "../../types"
-// import { TxRecord } from "../../../views/TxRecord"
 import { Bar, Doughnut, Line, Pie, Polar, Radar } from 'react-chartjs-2';
 
 import {
@@ -25,17 +22,16 @@ import {
   Row,
   Table,
 } from 'reactstrap';
-import Widget03 from '../../views/Widgets/Widget03'
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
+import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
+import utils from '../../utils'
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
-const qtum = new Qtum("http://localhost:9888", require("../../solar.development.json"))
-const myToken = qtum.contract("Simplr.sol")
+const myToken = utils.contract;
 
 // Social Box Chart
 const socialBoxData = [
@@ -305,22 +301,30 @@ class Dashboard extends Component {
   // }
 
   getUserName() {
-    const result =  myToken.call("getUserName");
+    const result =  myToken.getUserName().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
-     
+     console.log(value);
       const supply = value.outputs[0];
      
       document.getElementById("userName").innerHTML = supply.toString();
-    })
+    });
+
+    myToken.getUserName().call().then(userBalance => {
+      console.log(`User's balance is: ${ userBalance }`);
+  }).catch(error => {
+      console.error(error);  
+  });
+
+ 
     
   }
 
   getUserAddress() {
-    const result =  myToken.call("getUserAddress");
+    const result =  myToken.getUserAddress().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
-     
+     console.log(value);
       const supply = value.outputs[0];
      
       document.getElementById("userAddress").innerHTML = supply.toString();
@@ -328,7 +332,7 @@ class Dashboard extends Component {
     
   }
   getUserBalance() {
-    const result =  myToken.call("getUserBalance");
+    const result =  myToken.getUserBalance().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
      
@@ -341,7 +345,7 @@ class Dashboard extends Component {
 
 getContractBalance() {
 
-const result =  myToken.call("getContractBalance");
+const result =  myToken.getContractBalance().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
      

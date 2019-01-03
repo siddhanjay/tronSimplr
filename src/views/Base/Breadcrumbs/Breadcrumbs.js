@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Qtum, QtumRPC, Contract } from "qtumjs"
 import {
-  Badge,
   Button,
   ButtonDropdown,
   Card,
@@ -9,25 +7,17 @@ import {
   CardFooter,
   CardHeader,
   Col,
-  Collapse,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Fade,
   Form,
   FormGroup,
-  FormText,
   Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
   Label,
   Row,
   Alert,
 } from 'reactstrap';
+import utils from '../../../utils';
 
-const qtum = new Qtum("http://localhost:9888", require("../../../solar.development.json"))
-const myToken = qtum.contract("Simplr.sol")
+
+const myToken = utils.contract;
 
 class Breadcrumbs extends Component {
 
