@@ -19,6 +19,7 @@ import utils from '../../../utils';
 
 const myToken = utils.contract;
 
+var contract ;
 class Breadcrumbs extends Component {
 
   constructor(props) {
@@ -35,6 +36,8 @@ class Breadcrumbs extends Component {
       color: "success",
       message: "Transaction created successfully"
     };
+    this.getContract(); 
+
   }
 
   toggle() {
@@ -50,14 +53,34 @@ class Breadcrumbs extends Component {
    
   }
 
+    getContract(){
+      if(this.contract === undefined){
+        const result =  tronWeb.contract().at("TGedNeSvFy6TSmVMPNp5fD55xbyW2SdDBJ");
+        var promise = Promise.resolve(result);
+        var self_ = this;
+        try {
+          promise.then(function(value) {
+             console.log(value);
+            self_.contract = value;
+             return value;
+           })
+         } catch(e){
+           console.log(e);
+          }
+      }
+  }
+
+
+
+ 
   createContract() {
     var gName = document.getElementById('exampleInputName2').value;
     var userName = document.getElementById('exampleInputEmail2').value;
-    const result =  myToken.send("createContract", [gName, userName]);
+    const result =  this.contract.createContract(gName,userName).send();
    var promise = Promise.resolve(result);
    this.setState({ visible: true });
    this.setState({ color : "warning"});
-   this.setState({ message: "Transcation is pending approval.Please verify" });
+   this.setState({ message: "Transaction is pending approval.Please verify" });
    var self_ = this;
    try {
    promise.then(function(value) {

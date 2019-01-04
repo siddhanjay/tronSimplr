@@ -8,7 +8,8 @@ const utils = {
 
     setTronWeb(tronWeb) {
         this.tronWeb = tronWeb;
-        this.contract = tronWeb.contract(contract.abi, contract.address)
+        this.contract = tronWeb.contract(contract.abi, contract.address);
+        tronWeb.setAddress(contract.address)
     }
 
 };

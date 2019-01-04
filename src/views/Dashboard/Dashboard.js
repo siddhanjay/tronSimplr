@@ -32,6 +32,7 @@ const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
 const myToken = utils.contract;
+var contract ;
 
 // Social Box Chart
 const socialBoxData = [
@@ -273,6 +274,8 @@ class Dashboard extends Component {
       dropdownOpen: false,
       radioSelected: 2,
     };
+    this.getContract(); 
+
   }
 
   toggle() {
@@ -286,6 +289,23 @@ class Dashboard extends Component {
       radioSelected: radioSelected,
     });
   }
+
+  getContract(){
+    if(this.contract === undefined){
+      const result =  tronWeb.contract().at("TGedNeSvFy6TSmVMPNp5fD55xbyW2SdDBJ");
+      var promise = Promise.resolve(result);
+      var self_ = this;
+      try {
+        promise.then(function(value) {
+           console.log(value);
+          self_.contract = value;
+           return value;
+         })
+       } catch(e){
+         console.log(e);
+        }
+    }
+}
   
   //  getNumberOfUsers() {
   //   const result =  myToken.call("getNumberOfUsers");
@@ -300,8 +320,8 @@ class Dashboard extends Component {
     
   // }
 
-  getUserName() {
-    const result =  myToken.getUserName().call();
+   getUserName() {
+    const result =  this.contract.getUserName().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
      console.log(value);
@@ -309,7 +329,8 @@ class Dashboard extends Component {
      
       document.getElementById("userName").innerHTML = supply.toString();
     });
-
+    var temp =  myToken.getUserName().call();
+    console.log(temp);
     myToken.getUserName().call().then(userBalance => {
       console.log(`User's balance is: ${ userBalance }`);
   }).catch(error => {
@@ -321,7 +342,7 @@ class Dashboard extends Component {
   }
 
   getUserAddress() {
-    const result =  myToken.getUserAddress().call();
+    const result =  this.contract.getUserAddress().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
      console.log(value);
@@ -332,7 +353,7 @@ class Dashboard extends Component {
     
   }
   getUserBalance() {
-    const result =  myToken.getUserBalance().call();
+    const result =  this.contract.getUserBalance().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
      
@@ -345,7 +366,7 @@ class Dashboard extends Component {
 
 getContractBalance() {
 
-const result =  myToken.getContractBalance().call();
+const result =  this.contract.getContractBalance().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
      
