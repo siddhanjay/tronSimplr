@@ -27,6 +27,7 @@ import {
 
 import utils from '../../../utils/index';
 const myToken = utils.contract;
+var contract ;
 
 class Jumbotrons extends Component {
   constructor(props) {
@@ -43,6 +44,8 @@ class Jumbotrons extends Component {
       color: "success",
       message: "Transaction created successfully"
     };
+    this.getContract(); 
+
   }
 
   toggle() {
@@ -57,13 +60,30 @@ class Jumbotrons extends Component {
     this.setState({ visible: false });
    
   }
+  getContract(){
+    if(this.contract === undefined){
+      const result =  tronWeb.contract().at("TGedNeSvFy6TSmVMPNp5fD55xbyW2SdDBJ");
+      var promise = Promise.resolve(result);
+      var self_ = this;
+      try {
+        promise.then(function(value) {
+           console.log(value);
+          self_.contract = value;
+           return value;
+         })
+       } catch(e){
+         console.log(e);
+        }
+    }
+}
+
   fundContract() {
     var fundAmount = parseInt(document.getElementById('fundAmount').value);
-    const result = myToken.send("fundContract", [], {amount : fundAmount/100000000});
+    const result = this.contract.fundContract().send( {amount : fundAmount/100000000});
     var promise = Promise.resolve(result);
     this.setState({ visible: true });
     this.setState({ color : "warning"});
-    this.setState({ message: "Transcation is pending approval.Please verify" });
+    this.setState({ message: "Transaction is pending approval.Please verify" });
     var self_ = this;
     try {
       promise.then(function(value) {
@@ -96,7 +116,7 @@ class Jumbotrons extends Component {
                         </InputGroupAddon>
                         <Input type="text" id="fundAmount" name="input3-group1" placeholder="Amount" />
                         <InputGroupAddon addonType="append">
-                          <InputGroupText>Qtum tokens</InputGroupText>
+                          <InputGroupText>TRX</InputGroupText>
                         </InputGroupAddon>
                       </InputGroup>
                       </Col>

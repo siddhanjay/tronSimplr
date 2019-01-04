@@ -114,7 +114,7 @@ class Breadcrumbs extends Component {
                   </FormGroup>
                   <FormGroup className="pr-1">
                     <Label htmlFor="exampleInputEmail2" className="pr-1"> Your Name</Label>
-                    <Input type="text" id="exampleInputEmail2" placeholder="Nakamoto" required />
+                    <Input type="text" id="exampleInputEmail2" placeholder="Satoshi" required />
                   </FormGroup>
                 </Form>
               </CardBody>
