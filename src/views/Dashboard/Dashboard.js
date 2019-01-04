@@ -321,62 +321,87 @@ class Dashboard extends Component {
   // }
 
    getUserName() {
-    const result =  this.contract.getUserName().call();
-   var promise = Promise.resolve(result);
-    promise.then(function(value) {
-     console.log(value);
-      const supply = value.outputs[0];
-     
-      document.getElementById("userName").innerHTML = supply.toString();
-    });
-    var temp =  myToken.getUserName().call();
-    console.log(temp);
-    myToken.getUserName().call().then(userBalance => {
-      console.log(`User's balance is: ${ userBalance }`);
-  }).catch(error => {
-      console.error(error);  
-  });
+    var wait = ms => new Promise((r, j)=>setTimeout(r, ms))
 
+    var done = ()=> {
+
+      const result =  this.contract.getUserName().call();
+     var promise = Promise.resolve(result);
+      promise.then(function(value) {
+       console.log(value);
+        //const supply = value.outputs[0];
+       
+        document.getElementById("userName").innerHTML = value.toString();
+      });
+    //   this.contract.getUserName().call().then(userBalance => {
+    //     console.log(`User's balance is: ${ userBalance }`);
+    // }).catch(error => {
+    //     console.error(error);  
+    // });
+  }
+
+  var prom =  wait(2000);
+  prom.then(done);
  
     
   }
 
   getUserAddress() {
+    var wait = ms => new Promise((r, j)=>setTimeout(r, ms))
+
+    var done = ()=> {
     const result =  this.contract.getUserAddress().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
      console.log(value);
-      const supply = value.outputs[0];
+      //const supply = value.outputs[0];
      
-      document.getElementById("userAddress").innerHTML = supply.toString();
+      document.getElementById("userAddress").innerHTML = value.toString();
     })
+  }
+
+  var prom =  wait(2000);
+  prom.then(done);
     
   }
+
   getUserBalance() {
+    var wait = ms => new Promise((r, j)=>setTimeout(r, ms))
+
+    var done = ()=> {
     const result =  this.contract.getUserBalance().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
      
-      const supply = value.outputs[0];
+      //const supply = value.outputs[0];
      
-      document.getElementById("userBalance").innerHTML = supply.toNumber() + " Qtum";
+      document.getElementById("userBalance").innerHTML = value.toNumber() + " TRX";
     })
-    
+    }
+    var prom =  wait(2000);
+  prom.then(done);
+
   }
 
 getContractBalance() {
+var wait = ms => new Promise((r, j)=>setTimeout(r, ms))
 
+    var done = ()=> {
 const result =  this.contract.getContractBalance().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
      
-      const supply = value.outputs[0];
-     var bal = supply.toNumber();
+      //const supply = value.outputs[0];
+     var bal = value.toNumber();
      if(bal === 100){
        bal = 400;
      } 
-      document.getElementById("contractBalance").innerHTML = bal + " Qtum";
+      document.getElementById("contractBalance").innerHTML = bal + " TRX";
     })
+  }
+    var prom =  wait(2000);
+  prom.then(done);
+
 }
    render() {
 
