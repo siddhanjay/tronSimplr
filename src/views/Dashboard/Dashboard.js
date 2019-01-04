@@ -588,10 +588,10 @@ const result =  this.contract.getContractBalance().call();
                       </div>
                     </td>
                     <td>
-                      <div>Vitalik Buterin</div>
+                      <div>Justin Sun</div>
                     </td>
                     <td className="text-center">
-                      <i className="flag-icon flag-icon-ch h4 mb-0" title="in" id="in"></i>
+                      <i className="flag-icon flag-icon-us h4 mb-0" title="in" id="in"></i>
                     </td>
                     <td>
                       <div className="clearfix">
