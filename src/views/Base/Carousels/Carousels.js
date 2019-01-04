@@ -26,7 +26,8 @@ import {
 } from 'reactstrap';
 
 import utils from '../../../utils/index';
-const myToken = utils.contract("Simplr.sol")
+
+var contract ;
 
 class Carousels extends Component {
 
@@ -44,6 +45,7 @@ class Carousels extends Component {
       color: "success",
       message: "Transaction created successfully"
     };
+    this.getContract();
   }
 
   toggle() {
@@ -59,10 +61,27 @@ class Carousels extends Component {
    
   }
 
+  getContract(){
+    if(this.contract === undefined){
+      const result =  tronWeb.contract().at("TGedNeSvFy6TSmVMPNp5fD55xbyW2SdDBJ");
+      var promise = Promise.resolve(result);
+      var self_ = this;
+      try {
+        promise.then(function(value) {
+           console.log(value);
+          self_.contract = value;
+           return value;
+         })
+       } catch(e){
+         console.log(e);
+        }
+    }
+}
+
   addUser() {
     var userName = document.getElementById('addUserName').value;
     var userAddress = document.getElementById('addUserAddress').value;
-    const result = myToken.send("addUser", [userName, userAddress]);
+    const result = this.contract.addUser(userName, userAddress).send();
     var promise = Promise.resolve(result);
     this.setState({ visible: true });
     this.setState({ color : "warning"});
@@ -99,7 +118,7 @@ class Carousels extends Component {
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText><i className="fa fa-user"></i></InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" id="addUserName" name="username1" placeholder="Vitalik" autoComplete="name"/>
+                      <Input type="text" id="addUserName" name="username1" placeholder="Justin Sun" autoComplete="name"/>
                     </InputGroup>
                   </FormGroup>
                   <FormGroup>
@@ -107,7 +126,7 @@ class Carousels extends Component {
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText><i className="fa fa-envelope"></i></InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" id="addUserAddress" name="email1" placeholder="0xca35b7d915458ef540ade6068dfe2f44e8fa733c" autoComplete="username"/>
+                      <Input type="text" id="addUserAddress" name="email1" placeholder="TT5KEUr43WpWw1Tn8xYzGhioUqBf5pwDDt" autoComplete="username"/>
                     </InputGroup>
                   </FormGroup>
                   <FormGroup className="form-actions">

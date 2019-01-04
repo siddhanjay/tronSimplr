@@ -27,7 +27,7 @@ import {
 import utils from '../../../utils/index';
 
 const myToken = utils.contract;
-
+var contract;
 
 
 class Popovers extends Component {
@@ -45,6 +45,7 @@ class Popovers extends Component {
       color: "success",
       message: "Transaction created successfully"
     };
+    this.getContract(); 
   }
 
   toggle() {
@@ -62,11 +63,11 @@ class Popovers extends Component {
   
   withdrawBalance() {
     var withdrawAmount = document.getElementById('withdrawAmount').value;
-    const result = myToken.send("withdraw", [withdrawAmount]);
+    const result = this.contract.withdraw(withdrawAmount).send();
     var promise = Promise.resolve(result);
     this.setState({ visible: true });
     this.setState({ color : "warning"});
-    this.setState({ message: "Transcation is pending approval.Please verify" });
+    this.setState({ message: "Transaction is pending approval.Please verify" });
     var self_ = this;
     try {
       promise.then(function(value) {
@@ -79,15 +80,34 @@ class Popovers extends Component {
       }
   }
 
+
+  getContract(){
+    if(this.contract === undefined){
+      const result =  tronWeb.contract().at("TGedNeSvFy6TSmVMPNp5fD55xbyW2SdDBJ");
+      var promise = Promise.resolve(result);
+      var self_ = this;
+      try {
+        promise.then(function(value) {
+           console.log(value);
+          self_.contract = value;
+           return value;
+         })
+       } catch(e){
+         console.log(e);
+        }
+    }
+}
+
   getUserBalance() {
-    const result =  myToken.call("getUserBalance");
-   var promise = Promise.resolve(result);
-    promise.then(function(value) {
+  //   const result =  this.contract.getUserBalance().call();
+  //  var promise = Promise.resolve(result);
+  //   promise.then(function(value) {
      
-      const supply = value.outputs[0];
+  //     const supply = value.outputs[0];
      
-      document.getElementById("userBalance").innerHTML = "out of " + 60 + " available tokens";
-    })
+      //document.getElementById("userBalance").innerHTML = "out of " + 60 + " available tokens";
+      return "out of " + 0 + " available tokens"
+   // })
     
   }
 

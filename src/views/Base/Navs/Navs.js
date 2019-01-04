@@ -27,6 +27,8 @@ import {
 import utils from '../../../utils/index';
 
 const myToken = utils.contract;
+var contract;
+
 
 class Navs extends Component {
 
@@ -44,6 +46,7 @@ class Navs extends Component {
       color: "success",
       message: "Transaction created successfully"
     };
+    this.getContract();
   }
 
   toggle() {
@@ -59,17 +62,34 @@ class Navs extends Component {
    
   }
 
+  getContract(){
+    if(this.contract === undefined){
+      const result =  tronWeb.contract().at("TGedNeSvFy6TSmVMPNp5fD55xbyW2SdDBJ");
+      var promise = Promise.resolve(result);
+      var self_ = this;
+      try {
+        promise.then(function(value) {
+           console.log(value);
+          self_.contract = value;
+           return value;
+         })
+       } catch(e){
+         console.log(e);
+        }
+    }
+}
+
   makePayment() {
     var title = document.getElementById('paymentTitle').value;
     var amount = document.getElementById('paymentAmount').value;
     var addr = document.getElementById('paymentAddress').value;
     var payees = [];
     var notes = document.getElementById('paymentNotes').value;
-    const result = myToken.send("makePayment", [title, amount,addr ,payees,notes]);
+    const result = this.contract.makePayment(title, amount,addr,payees,notes).send();
     var promise = Promise.resolve(result);
     this.setState({ visible: true });
     this.setState({ color : "warning"});
-    this.setState({ message: "Transcation is pending approval.Please verify" });
+    this.setState({ message: "Transaction is pending approval.Please verify" });
     var self_ = this;
     try {
       promise.then(function() {
@@ -111,7 +131,7 @@ class Navs extends Component {
                         </InputGroupAddon>
                         <Input type="text" id="paymentAmount" name="input3-group1" placeholder="Amount" />
                         <InputGroupAddon addonType="append">
-                          <InputGroupText>Qtum tokens</InputGroupText>
+                          <InputGroupText>TRX</InputGroupText>
                         </InputGroupAddon>
                       </InputGroup>
                   </FormGroup>
@@ -139,7 +159,7 @@ class Navs extends Component {
                       </FormGroup>
                       <FormGroup check className="checkbox">
                         <Input className="form-check-input" type="checkbox" id="checkbox31" name="checkbox3" value="option3" />
-                        <Label check className="form-check-label" htmlFor="checkbox3">Vitalik Buterin</Label>
+                        <Label check className="form-check-label" htmlFor="checkbox3">Justin Sun</Label>
                       </FormGroup>
                       <FormGroup check className="checkbox">
                         <Input className="form-check-input" type="checkbox" id="checkbox41" name="checkbox3" value="option3" />
