@@ -106,7 +106,7 @@ class Popovers extends Component {
   //     const supply = value.outputs[0];
      
       //document.getElementById("userBalance").innerHTML = "out of " + 60 + " available tokens";
-      return "out of " + 0 + " available tokens"
+      return "out of " + 90 + " available tokens"
    // })
     
   }
@@ -129,7 +129,7 @@ class Popovers extends Component {
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">
                         </InputGroupAddon>
-                        <Input type="text" id="withdrawAmount" name="input3-group1" placeholder="Amount" />
+                        <Input type="text" id="withdrawAmount" name="input3-group1" placeholder="Amount" autoComplete = "off"/>
                         <InputGroupAddon addonType="append">
                           <InputGroupText id ="userBalance">{this.getUserBalance()} </InputGroupText>
                         </InputGroupAddon>

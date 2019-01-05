@@ -120,7 +120,7 @@ class Navs extends Component {
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>Description</InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text " id="paymentTitle" name="username3" autoComplete="name" placeholder="Lunch at PastaStop"/>
+                      <Input type="text " id="paymentTitle" name="username3" autoComplete="off" placeholder="Lunch at PastaStop"/>
                       <InputGroupAddon addonType="append">
                       </InputGroupAddon>
                     </InputGroup>
@@ -129,7 +129,7 @@ class Navs extends Component {
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">
                         </InputGroupAddon>
-                        <Input type="text" id="paymentAmount" name="input3-group1" placeholder="Amount" />
+                        <Input type="text" id="paymentAmount" name="input3-group1" placeholder="Amount" autoComplete = "off"/>
                         <InputGroupAddon addonType="append">
                           <InputGroupText>TRX</InputGroupText>
                         </InputGroupAddon>
@@ -172,7 +172,7 @@ class Navs extends Component {
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>Additional Notes</InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" id="paymentNotes" name="password3" />
+                      <Input type="text" id="paymentNotes" name="password3" autoComplete = "off"/>
                       <InputGroupAddon addonType="append">
                         <InputGroupText><i className="fa fa-asterisk"></i></InputGroupText>
                       </InputGroupAddon>

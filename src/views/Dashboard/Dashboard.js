@@ -297,7 +297,6 @@ class Dashboard extends Component {
       var self_ = this;
       try {
         promise.then(function(value) {
-           console.log(value);
           self_.contract = value;
            return value;
          })
@@ -328,16 +327,11 @@ class Dashboard extends Component {
       const result =  this.contract.getUserName().call();
      var promise = Promise.resolve(result);
       promise.then(function(value) {
-       console.log(value);
-        //const supply = value.outputs[0];
+
        
         document.getElementById("userName").innerHTML = value.toString();
       });
-    //   this.contract.getUserName().call().then(userBalance => {
-    //     console.log(`User's balance is: ${ userBalance }`);
-    // }).catch(error => {
-    //     console.error(error);  
-    // });
+
   }
 
   var prom =  wait(2000);
@@ -353,9 +347,6 @@ class Dashboard extends Component {
     const result =  this.contract.getUserAddress().call();
    var promise = Promise.resolve(result);
     promise.then(function(value) {
-     console.log(value);
-      //const supply = value.outputs[0];
-     
       document.getElementById("userAddress").innerHTML = value.toString();
     })
   }
@@ -396,7 +387,7 @@ const result =  this.contract.getContractBalance().call();
      if(bal === 100){
        bal = 400;
      } 
-      document.getElementById("contractBalance").innerHTML = bal + " TRX";
+      document.getElementById("contractBalance").innerHTML = bal/1000000 + " TRX";
     })
   }
     var prom =  wait(2000);
